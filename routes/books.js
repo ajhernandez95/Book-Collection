@@ -67,15 +67,46 @@ router.post(
 // @route     PUT /api/books
 // @desc      Update user book from book collection
 // @auth      PRIVATE
-router.put('/', auth, (req, res) => {
-  res.send('update');
+router.put('/:id', auth, async (req, res) => {
+  const { title, author, desc } = req.body;
+
+  let updateFields = {};
+  if (title) updateFields.title = title;
+  if (author) updateFields.author = author;
+  if (desc) updateFields.desc = desc;
+
+  try {
+    let book = await Book.findById(req.params.id);
+
+    if (!book) res.status(400).json({ msg: 'Book not found' });
+
+    if (book.user.toString() !== req.user.id)
+      res.status(401).json({ msg: 'Unauthorized Access' });
+
+    const updatedBook = await Book.findByIdAndUpdate(book, updateFields, {
+      new: true
+    });
+
+    res.json(updatedBook);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server Error');
+  }
 });
 
 // @route     DELETE /api/books
 // @desc      Delete a users book from book collection
 // @auth      PRIVATE
-router.delete('/', auth, (req, res) => {
-  res.send('delete');
+router.delete('/:id', auth, async (req, res) => {
+  let book = await Book.findById(req.params.id);
+  res.json(book);
+  if (!book) res.status(400).json({ msg: 'Book does not exist' });
+  if (req.user.toString() !== book.user)
+    res.status(401).json({ msg: 'Unauthorized Access' });
+
+  await Book.findByIdAndDelete(book.id);
+
+  res.json({ msg: 'Book successfully deleted' });
 });
 
 module.exports = router;
