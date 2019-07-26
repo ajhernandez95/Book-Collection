@@ -67,6 +67,7 @@ router.post(
 // @route     PUT /api/books
 // @desc      Update user book from book collection
 // @auth      PRIVATE
+
 router.put('/:id', auth, async (req, res) => {
   const { title, author, desc } = req.body;
 
@@ -92,6 +93,7 @@ router.put('/:id', auth, async (req, res) => {
     console.error(err);
     res.status(500).send('Server Error');
   }
+
 });
 
 // @route     DELETE /api/books
@@ -107,6 +109,7 @@ router.delete('/:id', auth, async (req, res) => {
   await Book.findByIdAndDelete(book.id);
 
   res.json({ msg: 'Book successfully deleted' });
+
 });
 
 module.exports = router;
