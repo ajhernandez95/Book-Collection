@@ -67,14 +67,14 @@ router.post(
 // @route     PUT /api/books
 // @desc      Update user book from book collection
 // @auth      PRIVATE
-router.put('/', auth, (req, res) => {
-  res.send('update');
+router.put('/:id', auth, (req, res) => {
+  const { title, author, desc } = req.body;
 });
 
 // @route     DELETE /api/books
 // @desc      Delete a users book from book collection
 // @auth      PRIVATE
-router.delete('/', auth, (req, res) => {
+router.delete('/:id', auth, (req, res) => {
   res.send('delete');
 });
 
