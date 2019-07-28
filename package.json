@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
-    "server": "nodemon server.js"
+    "client": "npm start --prefix client",
+    "clientinstall": "npm i --prefix client",
+    "server": "nodemon server.js",
+    "dev": "concurrently \"npm run client\" \"npm run server\""
   },
   "author": "Alexander Hernandez",
   "license": "ISC",
@@ -17,5 +20,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.6.6",
     "nodemon": "^1.19.1"
+  },
+  "devDependencies": {
+    "concurrently": "^4.1.1"
   }
 }

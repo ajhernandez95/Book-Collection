@@ -93,7 +93,6 @@ router.put('/:id', auth, async (req, res) => {
     console.error(err);
     res.status(500).send('Server Error');
   }
-
 });
 
 // @route     DELETE /api/books
@@ -101,15 +100,14 @@ router.put('/:id', auth, async (req, res) => {
 // @auth      PRIVATE
 router.delete('/:id', auth, async (req, res) => {
   let book = await Book.findById(req.params.id);
-  res.json(book);
+
   if (!book) res.status(400).json({ msg: 'Book does not exist' });
-  if (req.user.toString() !== book.user)
+  if (book.user.toString() !== req.user.id)
     res.status(401).json({ msg: 'Unauthorized Access' });
 
   await Book.findByIdAndDelete(book.id);
 
   res.json({ msg: 'Book successfully deleted' });
-
 });
 
 module.exports = router;
