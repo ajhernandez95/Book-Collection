@@ -5,19 +5,19 @@ import NavLink from '../../components/tools/NavLink';
 
 const Navbar = () => {
   return (
-    <nav className='flex justify-center fixed w-screen bg-gray-200'>
-      <div className='container flex items-center'>
-        <img src={logo} alt='company logo' className='h-16' />
-        <div className='ml-auto'>
-          <ul className='flex items-center'>
+    <nav className="flex justify-center fixed w-screen bg-white">
+      <div className="container flex items-center">
+        <img src={logo} alt="company logo" className="h-16" />
+        <div className="ml-auto">
+          <ul className="flex items-center">
             <li>
-              <NavLink to='/' text='HOME' styleObj={navLinkStyle} />
+              <NavLink to="/" text="HOME" styleObj={navLinkStyle} />
             </li>
             <li>
-              <NavLink to='/about' text='ABOUT' styleObj={navLinkStyle} />
+              <NavLink to="/about" text="ABOUT" styleObj={navLinkStyle} />
             </li>
             <li>
-              <NavLink to='/' text='LOGIN' styleObj={navBtnStyle} />
+              <NavLink to="/login" text="LOGIN" styleObj={navBtnStyle} />
             </li>
           </ul>
         </div>

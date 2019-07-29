@@ -1,9 +1,9 @@
 import React from 'react';
-import BookContainer from '../layout/BookContainer';
+import BookContainer from '../books/BookContainer';
 
 const Home = () => {
   return (
-    <div className='flex h-screen bg-gray-900'>
+    <div className="flex h-screen bg-gray-900">
       <BookContainer />
     </div>
   );
