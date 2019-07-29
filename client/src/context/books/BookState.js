@@ -10,7 +10,9 @@ import {
   EDIT_BOOK,
   SET_CURRENT,
   CLEAR_CURRENT,
-  GET_BOOKS
+  GET_BOOKS,
+  FILTER_BOOKS,
+  CLEAR_FILTER
 } from '../types';
 
 const BookState = props => {
@@ -35,7 +37,8 @@ const BookState = props => {
         description: 'Description 3'
       }
     ],
-    currentBook: null
+    currentBook: null,
+    filtered: null
   };
 
   const [state, dispatch] = useReducer(booksReducer, initialState);
@@ -72,6 +75,16 @@ const BookState = props => {
     dispatch({ type: CLEAR_CURRENT });
   };
 
+  // Filter books
+  const filter = text => {
+    dispatch({ type: FILTER_BOOKS, payload: text });
+  };
+
+  // Clear filter
+  const clearFilter = () => {
+    dispatch({ type: CLEAR_FILTER });
+  };
+
   return (
     <BookContext.Provider
       value={{
@@ -81,7 +94,10 @@ const BookState = props => {
         currentBook: state.currentBook,
         addBook,
         deleteBook,
-        editBook
+        editBook,
+        filter,
+        filtered: state.filtered,
+        clearFilter
       }}
     >
       {props.children}

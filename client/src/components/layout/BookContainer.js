@@ -6,12 +6,14 @@ import Form from '../tools/Form';
 
 const BookContainer = () => {
   const bookContext = useContext(BookContext);
-  const { books, filter, filtered } = bookContext;
+  const { books, filter, clearFilter, filtered } = bookContext;
   const text = useRef('');
 
   const onChange = () => {
-    if (filtered !== null) {
-      filter(text.current.valuet);
+    if (text.current.value) {
+      filter(text.current.value);
+    } else {
+      clearFilter();
     }
   };
   return (
@@ -30,17 +32,26 @@ const BookContainer = () => {
             onChange={onChange}
             ref={text}
           />
-          {console.log(text.current.value, 'test')}
         </div>
-        {books.map(book => (
-          <BookItem
-            key={book.id}
-            id={book.id}
-            title={book.title}
-            author={book.author}
-            description={book.description}
-          />
-        ))}
+        {filtered !== null
+          ? filtered.map(book => (
+              <BookItem
+                key={book.id}
+                id={book.id}
+                title={book.title}
+                author={book.author}
+                description={book.description}
+              />
+            ))
+          : books.map(book => (
+              <BookItem
+                key={book.id}
+                id={book.id}
+                title={book.title}
+                author={book.author}
+                description={book.description}
+              />
+            ))}
       </div>
     </div>
   );

@@ -4,7 +4,9 @@ import {
   EDIT_BOOK,
   SET_CURRENT,
   CLEAR_CURRENT,
-  GET_BOOKS
+  GET_BOOKS,
+  FILTER_BOOKS,
+  CLEAR_FILTER
 } from '../types';
 
 export default (state, action) => {
@@ -43,6 +45,19 @@ export default (state, action) => {
       return {
         ...state,
         currentBook: null
+      };
+    case FILTER_BOOKS:
+      const regExp = new RegExp(`${action.payload}`, 'gi');
+      return {
+        ...state,
+        filtered: state.bookCollection.filter(
+          book => book.title.match(regExp) || book.author.match(regExp)
+        )
+      };
+    case CLEAR_FILTER:
+      return {
+        ...state,
+        filtered: null
       };
     default:
       return state;
