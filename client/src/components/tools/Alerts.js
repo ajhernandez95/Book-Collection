@@ -6,9 +6,9 @@ const Alerts = () => {
   const alertContext = useContext(AlertContext);
   const { alerts } = alertContext;
   return alerts.map(alert => (
-    <div className="flex mb-4 bg-red-300 w-full">
-      <span className="mx-2">
-        <i className="fa fa-info-circle" />
+    <div className='flex mb-4 bg-red-500 w-full'>
+      <span className='mx-2'>
+        <i className='fa fa-info-circle' />
       </span>
       <p>{alert.msg}</p>
     </div>
