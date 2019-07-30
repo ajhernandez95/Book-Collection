@@ -17,7 +17,7 @@ const BookContainer = () => {
     }
   };
   return (
-    <div className="flex flex-col w-3/4 m-auto bg-white rounded md:w-1/2 md:flex-row">
+    <div className="flex flex-col w-3/4 m-auto bg-red-500 rounded md:w-1/2 md:flex-row">
       <div className=" p-4 md:w-1/2">
         <Form />
       </div>

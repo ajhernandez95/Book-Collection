@@ -3,7 +3,7 @@ import BookContainer from '../books/BookContainer';
 
 const Home = () => {
   return (
-    <div className="flex h-screen bg-gray-900">
+    <div className="flex bg-gray-900 h-screen">
       <BookContainer />
     </div>
   );

@@ -5,7 +5,7 @@ import NavLink from '../../components/tools/NavLink';
 
 const Navbar = () => {
   return (
-    <nav className="flex justify-center fixed w-screen bg-white">
+    <nav className="flex justify-center w-full bg-white">
       <div className="container flex items-center">
         <img src={logo} alt="company logo" className="h-16" />
         <div className="ml-auto">
