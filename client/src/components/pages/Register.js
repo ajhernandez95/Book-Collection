@@ -1,14 +1,14 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import uuid from 'uuid';
 
 import AuthContext from '../../context/auth/authContext';
 import AlertContext from '../../context/alert/alertContext';
 import Alerts from '../tools/Alerts';
 
-const Register = () => {
+const Register = props => {
   const authContext = useContext(AuthContext);
   const alertContext = useContext(AlertContext);
-  const { registerUser } = authContext;
+  const { registerUser, isAuth } = authContext;
   const { alerts, setAlert } = alertContext;
   const [user, setUser] = useState({
     name: '',
@@ -18,6 +18,12 @@ const Register = () => {
   });
 
   const { name, email, password, password2 } = user;
+
+  useEffect(() => {
+    if (isAuth) {
+      props.history.push('/');
+    }
+  }, [props.history, isAuth]);
 
   const onChange = e => {
     setUser({

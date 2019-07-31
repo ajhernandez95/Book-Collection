@@ -14,7 +14,7 @@ import {
 
 const AuthState = props => {
   const initialState = {
-    token: localStorage.getItem('token'),
+    token: null,
     isAuth: null,
     loading: true,
     user: null,
@@ -31,16 +31,25 @@ const AuthState = props => {
     };
     try {
       const res = await axios.post('/api/users', user, config);
+      console.log(res.data);
       dispatch({ type: REGISTER_SUCCESS, payload: res.data });
+      loadUser();
     } catch (err) {
       dispatch({ type: REGISTER_FAIL, payload: err.response.data.msg });
     }
   };
   // Login user
 
-  // Get user
+  // Load user
+  const loadUser = async () => {
+    try {
+      const res = await axios.get('/api/auth');
 
-  // Register user
+      dispatch({ type: USER_LOADED, payload: res.data });
+    } catch (err) {
+      dispatch({ type: AUTH_ERROR });
+    }
+  };
 
   // Logout
 
@@ -52,9 +61,10 @@ const AuthState = props => {
         token: state.token,
         isAuth: state.isAuth,
         loading: state.loading,
-        users: state.users,
+        user: state.user,
         errors: state.errors,
-        registerUser
+        registerUser,
+        loadUser
       }}
     >
       {props.children}

@@ -60,6 +60,9 @@ router.post(
         },
         (err, token) => {
           if (err) throw err;
+          res.cookie('token', token, {
+            htmlOnly: true
+          });
           res.json({ token });
         }
       );

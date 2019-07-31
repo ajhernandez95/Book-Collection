@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
-const auth = require('../middleware/auth');
+const authCookies = require('../middleware/authCookie');
 
 const User = require('../modals/Users');
 const Book = require('../modals/Book');
@@ -9,7 +9,7 @@ const Book = require('../modals/Book');
 // @route     GET /api/books
 // @desc      Get user books from book collection
 // @auth      PRIVATE
-router.get('/', auth, async (req, res) => {
+router.get('/', authCookies, async (req, res) => {
   try {
     const bookCollection = await Book.find({ user: req.user.id });
     res.json(bookCollection);
@@ -25,7 +25,7 @@ router.get('/', auth, async (req, res) => {
 router.post(
   '/',
   [
-    auth,
+    authCookies,
     [
       check('title', 'Title is missing').exists(),
       check('author', 'Author is missing').exists(),
@@ -68,7 +68,7 @@ router.post(
 // @desc      Update user book from book collection
 // @auth      PRIVATE
 
-router.put('/:id', auth, async (req, res) => {
+router.put('/:id', authCookies, async (req, res) => {
   const { title, author, desc } = req.body;
 
   let updateFields = {};
@@ -98,7 +98,7 @@ router.put('/:id', auth, async (req, res) => {
 // @route     DELETE /api/books
 // @desc      Delete a users book from book collection
 // @auth      PRIVATE
-router.delete('/:id', auth, async (req, res) => {
+router.delete('/:id', authCookies, async (req, res) => {
   let book = await Book.findById(req.params.id);
 
   if (!book) res.status(400).json({ msg: 'Book does not exist' });

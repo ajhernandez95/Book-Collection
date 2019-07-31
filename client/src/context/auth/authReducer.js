@@ -10,8 +10,14 @@ import {
 
 export default (state, action) => {
   switch (action.type) {
+    case USER_LOADED:
+      return {
+        ...state,
+        isAuth: true,
+        loading: false,
+        user: action.payload
+      };
     case REGISTER_SUCCESS:
-      localStorage.setItem('token', action.payload);
       return {
         ...state,
         ...action.payload,
@@ -19,12 +25,21 @@ export default (state, action) => {
         loading: false
       };
     case REGISTER_FAIL:
+    case AUTH_ERROR:
       return {
         ...state,
         token: null,
         isAuth: false,
         loading: false,
         errors: action.payload
+      };
+    case LOGOUT:
+      return {
+        ...state,
+        token: null,
+        isAuth: false,
+        loading: false,
+        errors: null
       };
     default:
       return {};
